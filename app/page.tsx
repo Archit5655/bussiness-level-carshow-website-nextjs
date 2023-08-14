@@ -3,11 +3,20 @@ import Customfilter from "@/components/Customfilter";
 import Hero from "@/components/Hero";
 import SearchManufacture from "@/components/SearchManufacture";
 import Searchbar from "@/components/Searchbar";
+import Showmore from "@/components/Showmore";
+import { fuels, yearsOfProduction } from "@/constants";
 import { fetchcars } from "@/utils";
 import Image from "next/image";
 
-export default async function Home() {
-  const allcars = await fetchcars();
+export default async function Home({searchParams}:any) {
+
+  const allcars = await fetchcars({
+    manufacturer:searchParams.manufacturer || '',
+    year:searchParams.year || 2022,
+    fuel:searchParams.fuel || '',
+    limit:searchParams.limit || '23', 
+    model:searchParams.model || '',
+  });
 
   // console.log(allcars);
   const isdataempty=!Array.isArray(allcars) ||allcars.length <1 || !allcars;
@@ -26,8 +35,8 @@ export default async function Home() {
 
           <div className="home___filter-container">
             {/* <SearchManufacture/> */}
-            {/* <Customfilter title="fuel"/>
-  <Customfilter title="year /> */}
+            <Customfilter title="fuel" options={yearsOfProduction} />
+  <Customfilter title="year" options={fuels} />
           </div>
         </div>
         {!isdataempty?(
@@ -36,6 +45,14 @@ export default async function Home() {
             {allcars?.map((car)=><Carcard car={car}  />)}
 
           </div>
+          <Showmore   
+          pagenumber={(searchParams.limit || 10)/10}
+          isnext={(searchParams.limit || 10 )> allcars.length}
+
+
+
+
+          />
           </section>
         ):(
           <div className="home__error-container">

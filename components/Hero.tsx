@@ -4,7 +4,13 @@ import Button from "./Button";
 import Image from "next/image";
 
 const Hero = () => {
-  const handleClick = () => {};
+  const handleScroll = () => {
+    const nextSection = document.getElementById("discover");
+
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div className="hero">
       <div className="flex-1 pt-36 padding-x">
@@ -16,7 +22,7 @@ const Hero = () => {
         <Button
           title="Exlore Cars"
           containerStyles="bg-primary-blue text-white rounded-full mt-10"
-          handleClick={() => {}}
+          handleClick={handleScroll}
           />
           </div>
         <div className="hero__image-container">
@@ -25,7 +31,7 @@ const Hero = () => {
               src="/hero.png"
               alt="hero"
               fill
-              className="object-container"
+              className="object-container object-contain"
             />
         </div>
           <div className="hero__image-overlay" />

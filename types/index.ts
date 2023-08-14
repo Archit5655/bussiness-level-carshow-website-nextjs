@@ -1,4 +1,5 @@
 import { MouseEventHandler } from "react";
+import { title } from 'process';
 
 
 
@@ -30,4 +31,23 @@ make:string,
 model:string,
 transmission:string,
 year:number,
+}
+export interface filterprops{
+    manufacturer:string,
+    year:number,
+    fuel:string,
+    limit:number,
+    model:string
+}
+export interface optionprops{
+    title:string,
+    value:string
+}
+export interface customfilterprops{
+    title:string,
+    options:optionprops[];
+}
+export interface showmoreprops{
+    pagenumber:number,
+    isnext:boolean
 }
